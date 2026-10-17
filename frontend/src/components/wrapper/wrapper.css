@@ -1,0 +1,38 @@
+.wrapper-container {
+  width: 100%;
+  max-width: 1120px;
+}
+
+.wrapper-subtitle {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: rgb(14, 100, 212);
+}
+
+.wrapper-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.wrapper-description {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.wrapper-cards-container {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+
+.wrapper-cards-container > * {
+  flex: 0 0 min(85%, 320px);
+  scroll-snap-align: start;
+}

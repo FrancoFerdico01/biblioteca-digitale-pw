@@ -1,0 +1,30 @@
+[
+
+    {
+      "id": 1,
+      "image": "path/to/image1.jpg",
+      "title": "La Memoria dei Portici",
+      "author": "Chiara Salviati",
+      "genre": "Fantascienza",
+      "location": "Sul Posto",
+      "available_books": 20
+    },
+    {
+      "id": 2,
+      "image": "path/to/image2.jpg",
+      "title": "Archivi nell'Era algoritmica",
+      "author": "Luca Bianchi",
+      "genre": "Scienze",
+      "location": "Sul Posto",
+      "available_books": 30
+    },
+    {
+      "id": 3,
+      "image": "path/to/image3.jpg",
+      "title": "Colori dimenticati del Chiostro",
+      "author": "Maria Rossi",
+      "genre": "Arte",
+      "location": "Sul Posto",
+      "available_books": 15
+    }
+]

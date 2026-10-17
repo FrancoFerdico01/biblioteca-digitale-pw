@@ -1,0 +1,155 @@
+.card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #dce3e8;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 5px 16px rgb(28 45 54 / 8%);
+}
+
+.card-media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #dcebe4;
+}
+
+.card-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #386a58;
+  background: linear-gradient(135deg, #e3eee7, #d6e5ee);
+}
+
+.card-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-duration {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 5px 9px;
+  border-radius: 4px;
+  color: rgb(14, 100, 212);
+  background-color: hwb(210 13% 0% / 0.11);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.card-booking-button {
+  margin-top: 12px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: rgb(14, 100, 212);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card-booking-button:hover {
+  background-color: rgb(10, 80, 170);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+}
+
+.card-content h2 {
+  display: -webkit-box;
+  min-height: calc(2 * 1.3em);
+  overflow: hidden;
+  color: #202b30;
+  font-size: 18px;
+  line-height: 1.3;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.card-content p {
+  display: -webkit-box;
+  overflow: hidden;
+  color: #5e6a70;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid #e8edef;
+  color: #526168;
+  font-size: 13px;
+}
+
+.card-availability,
+.card-location {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.card-availability {
+  color: #28634f;
+  font-weight: 600;
+}
+
+.card-availability svg,
+.card-location svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+.card-booking-availability-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.card-booking-availability {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  color:rgb(14, 100, 212);
+  background-color: hwb(210 13% 0% / 0.11);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.card-booking-availability-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  background-color: rgb(233, 233, 233);
+}
+
+.card-booking-availability-button:hover {
+  background-color:rgb(14, 100, 212);
+  color: #fff;
+}

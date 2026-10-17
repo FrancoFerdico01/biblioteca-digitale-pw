@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "image": "path/to/image1.jpg",
+    "title": "Visita guidata ai manoscritti storici",
+    "description": "Esplorazione del caveau pergamenaceo e introduzione ai codici miniati.",
+    "time": "10:00 AM",
+    "date": "2026-07-15",
+    "location": "Archivio Storico ° Piano -1",
+    "available_places": 20,
+    "durations": "75 Min"
+  },
+  {
+    "id": 2,
+    "image": "path/to/image2.jpg",
+    "title": "Incontro con l'autore di narrativa",
+    "description": "Un'opportunità per incontrare l'autore e discutere dei suoi libri.",
+    "time": "4:00 PM",
+    "date": "2026-08-10",
+    "location": "Sala Conferenze ° Piano 1",
+    "available_places": 30,
+    "durations": "30 Min"
+  },
+  {
+    "id": 3,
+    "image": "path/to/image3.jpg",
+    "title": "Laboratorio di scrittura creativa",
+    "description": "Un laboratorio interattivo per sviluppare le proprie abilità di scrittura.",
+    "time": "2:00 PM",
+    "date": "2026-09-05",
+    "location": "Sala Laboratori ° Piano 2",
+    "available_places": 15,
+    "durations": "60 Min"
+  }
+]

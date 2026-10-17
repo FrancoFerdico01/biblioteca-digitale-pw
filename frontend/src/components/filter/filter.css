@@ -1,0 +1,71 @@
+.filter { 
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+
+.filter-input-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  padding: 10px;
+  gap: 10px;
+  background-color: white;
+  width: 100%;
+  box-shadow: 1px 3px 3px 3px rgba(0, 0, 0, 0.1);
+}
+
+.filter-input-content {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.filter-input {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  padding:3px;
+}
+
+.filter-button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 4px;
+  background-color: rgb(14, 100, 212);;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter-button:hover {
+  background-color: #0056b3;
+}
+
+
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filter-button-list {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 16px;
+  background-color: rgb(14, 100, 212);
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.filter-button-list:hover {
+  background-color: #0056b3;
+}

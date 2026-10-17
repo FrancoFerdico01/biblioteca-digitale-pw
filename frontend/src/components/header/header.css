@@ -1,0 +1,30 @@
+.header {
+  text-align: center;
+  background-color: #f0f4ff;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px 20px 40px;
+}
+
+.header-paragraph {
+  color: #555;
+  line-height: 1.2;
+  font-size: 16px;
+}
+.header-icon-text {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: bold;
+  background-color: hwb(210 13% 0% / 0.11);
+  color: rgb(14, 100, 212);
+  padding: 5px;
+  border-radius: 8px;
+}
