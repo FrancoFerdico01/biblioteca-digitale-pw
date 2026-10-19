@@ -1,10 +1,20 @@
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 16px;
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  max-width: 1200px;
+  width: 100%;
 }
 
 .navbar-brand {
@@ -42,7 +52,7 @@
   display: none;
 }
 
-.navbar-user button {
+.navbar-user-button {
   font-size: 16px;
   color: white;
   border: none;
@@ -51,4 +61,42 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
+  cursor: pointer;
+}
+
+
+@media (min-width: 768px) {
+  .navbar-links a {
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+    color: #555;
+    padding: 4px;
+    border-radius: 5px;
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .navbar-links a:hover {
+    background-color: rgb(14, 100, 212);
+    color: white;
+  }
+
+  .navbar-links {
+    display: flex;
+    gap: 25px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .navbar-links a {
+    font-size: 18px;
+    padding: 6px;
+  }
+
+   .navbar-links {
+    display: flex;
+    gap: 50px;
+  }
 }

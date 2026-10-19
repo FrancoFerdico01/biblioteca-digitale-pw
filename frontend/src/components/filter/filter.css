@@ -69,3 +69,15 @@
 .filter-button-list:hover {
   background-color: #0056b3;
 }
+
+
+@media (min-width: 768px) {
+  .filter { 
+   display: flex;
+   align-items: center;
+   justify-content: center;
+  }
+  .filter-input-container {
+    width: 500px
+  }
+}
