@@ -4,6 +4,7 @@ import { useState } from "react";
 import "./navbar.css";
 import Modal from "../modal/Modal";
 import Brand from "../brand/Brand";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -17,10 +18,10 @@ const Navbar = () => {
       <div className="navbar-container">
         <Brand />
         <div className="navbar-links">
-          <a href="/">Home</a>
+          <Link to="/">Home</Link>
           <a href="#events">Eventi & Visite</a>
-          <a href="/Catalog">Catalogo Libri</a>
-          <a href="/contact">Le mie prenotazioni</a>
+          <Link to="/Catalog">Catalogo Libri</Link>
+          <Link to="/contact">Le mie prenotazioni</Link>
         </div>
         <div className="navbar-user">
           <button className="navbar-user-button" onClick={openModal}>

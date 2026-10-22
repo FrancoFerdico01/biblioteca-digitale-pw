@@ -1,6 +1,7 @@
 import "./modal.css";
 import type { ModalProps } from "../../types/interface";
 import Brand from "../brand/Brand";
+import { Link } from "react-router-dom";
 
 const Modal = ({ onClose, title, paragraph }: ModalProps) => {
   return (
@@ -13,8 +14,8 @@ const Modal = ({ onClose, title, paragraph }: ModalProps) => {
         </div>
         <div className="modal-actions">
           <div className="modal-links">
-            <a href="/login">Accedi</a>
-            <a href="/register">Registrati</a>
+            <Link to="/login">Accedi</Link>
+            <Link to="/register">Registrati</Link>
           </div>
           <button onClick={onClose}>Chiudi</button>
         </div>
