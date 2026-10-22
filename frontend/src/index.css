@@ -13,5 +13,8 @@
     Arial,
     sans-serif;
   font-style: normal;
-  
+}
+
+html {
+  scroll-behavior: smooth;
 }

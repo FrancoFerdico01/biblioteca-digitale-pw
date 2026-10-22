@@ -1,3 +1,4 @@
+import type { FilterCategory } from "./types";
 interface CardProps {
   image: string;
   duration: string;
@@ -21,3 +22,42 @@ interface WrapperProps<T> {
 }
 
 export type { WrapperProps };
+interface FilterProps {
+  category: FilterCategory;
+  onCategoryChange: (category: FilterCategory) => void;
+  onSearch: (term: string) => void;
+}
+
+export type { FilterProps };
+
+interface ModalProps {
+  onClose: () => void;
+  title: string;
+  paragraph: string;
+}
+
+export type { ModalProps };
+
+interface InputCustomProps {
+  type: string;
+  required?: boolean;
+  label: string;
+}
+
+export type { InputCustomProps };
+
+interface ButtonProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
+}
+
+export type { ButtonProps };
+
+interface FormProps {
+  headerText: string;
+  buttonText: string;
+  linkText?: string;
+}
+
+export type { FormProps };
