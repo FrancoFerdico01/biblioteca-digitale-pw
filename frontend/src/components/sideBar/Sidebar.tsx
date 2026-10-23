@@ -36,7 +36,7 @@ const Sidebar = () => {
           <div className="sidebar-footer">
             <CustomButton
               onClick={() => {
-                navigate("/home");
+                navigate("/");
               }}
             >
               Logout

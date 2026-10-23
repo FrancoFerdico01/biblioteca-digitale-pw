@@ -17,7 +17,7 @@ function App() {
         <Routes>
           {/* layout per le pagine pubbliche */}
           <Route element={<PublicLayout />}>
-            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Home />} />
           </Route>
 
           {/* layout per le pagine del login o registrazione */}

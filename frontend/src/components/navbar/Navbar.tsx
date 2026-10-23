@@ -24,7 +24,7 @@ const Navbar = () => {
       <div className="navbar-container">
         <Brand />
         <div className="navbar-links">
-          <Link to="/home">Home</Link>
+          <Link to="/">Home</Link>
           <a href="#events">Eventi & Visite</a>
           <Link to="/Catalog">Catalogo Libri</Link>
           <Link to="/contact">Le mie prenotazioni</Link>
