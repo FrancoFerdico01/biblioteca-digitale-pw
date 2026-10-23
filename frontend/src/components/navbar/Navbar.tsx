@@ -14,11 +14,17 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      {modalOpen && <Modal onClose={closeModal} title="Accedi al tuo profilo o crea un account!" paragraph="Entra nel tuo profilo o registrati per accedere a tutti i contenuti e interagire con gli altri membri della community." />}
+      {modalOpen && (
+        <Modal
+          onClose={closeModal}
+          title="Accedi al tuo profilo o crea un account!"
+          paragraph="Entra nel tuo profilo o registrati per accedere a tutti i contenuti e interagire con gli altri membri della community."
+        />
+      )}
       <div className="navbar-container">
         <Brand />
         <div className="navbar-links">
-          <Link to="/">Home</Link>
+          <Link to="/home">Home</Link>
           <a href="#events">Eventi & Visite</a>
           <Link to="/Catalog">Catalogo Libri</Link>
           <Link to="/contact">Le mie prenotazioni</Link>

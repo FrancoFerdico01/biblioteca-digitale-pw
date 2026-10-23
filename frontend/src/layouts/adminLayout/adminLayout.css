@@ -1,0 +1,11 @@
+.admin-layout-main {
+  margin-left: 0;
+  padding: 20px;
+}
+
+@media (min-width: 1024px) {
+  .admin-layout-main {
+    margin-left: 250px;
+    padding: 20px;
+  }
+}

@@ -1,4 +1,6 @@
 import { MdAccessTime, MdOutlineEmail, MdOutlineMessage } from "react-icons/md";
+import { useState } from "react";
+
 import { FiPhone } from "react-icons/fi";
 import {
   FaBookOpenReader,
@@ -9,8 +11,14 @@ import {
 } from "react-icons/fa6";
 import "./footer.css";
 import { TbWorld } from "react-icons/tb";
+import CustomButton from "../customButton/CustomButton";
+import { RiGitRepositoryPrivateLine } from "react-icons/ri";
+import Modal from "../modal/Modal";
+
+
 
 const Footer = () => {
+const [openModal, setOpenModal] = useState(false);
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -100,7 +108,17 @@ const Footer = () => {
             Rete bibliotecaria civica
           </span>
         <p className="footer-bottom-text">&copy; 2025 Biblioteca Digitale. Tutti i diritti riservati.</p>
+        <CustomButton  onClick={() => setOpenModal(true)}>
+          <RiGitRepositoryPrivateLine /> Area Riservata
+        </CustomButton>
       </div>
+      {openModal && (
+        <Modal
+          title="Area Riservata"
+          paragraph="Questa sezione è riservata agli utenti autorizzati."
+          onClose={() => setOpenModal(false)}
+        />
+      )}
     </footer>
   );
 };
