@@ -13,8 +13,8 @@ const Modal = ({ onClose, title, paragraph }: ModalProps) => {
 
 const handleLogin = () => {
   if (
-    values.email === import.meta.env.VITE_EMAIL_ADMIN &&
-    values.password === import.meta.env.VITE_PASSWORD_ADMIN
+    values.email === import.meta.env.EMAIL_ADMIN &&
+    values.password === import.meta.env.PASSWORD_ADMIN
   ) {
     navigation("/dashboard");
   }
