@@ -4,6 +4,10 @@ import { Outlet } from "react-router-dom";
 import Footer from "../../components/footer/Footer";
 import "./authLayout.css";
 import Brand from "../../components/brand/Brand";
+import { BsBookmarkCheck } from "react-icons/bs";
+import { MdCalendarMonth, MdLibraryBooks } from "react-icons/md";
+import { IoMdHome } from "react-icons/io";
+import BottomLinks from "../../components/bottomLinks/BottomLinks";
 
 const AuthLayout: React.FC = () => {
   return (
@@ -27,6 +31,16 @@ const AuthLayout: React.FC = () => {
         </div>
       </main>
       <Footer />
+         <BottomLinks 
+        route_1="/"
+        route_2="/#events"
+        route_3="/"
+        route_4="/#booking"
+        icon_1={<IoMdHome />}
+        icon_2={<MdCalendarMonth />}
+        icon_3={<MdLibraryBooks />}
+        icon_4={<BsBookmarkCheck />}
+      />
     </>
   );
 };

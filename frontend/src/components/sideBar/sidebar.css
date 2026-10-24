@@ -28,7 +28,7 @@
   text-decoration: underline;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 970px) {
   .sidebar {
     width: 250px;
     background-color: #f8f9fa;

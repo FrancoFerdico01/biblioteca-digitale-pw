@@ -63,3 +63,16 @@ interface FormProps {
 }
 
 export type { FormProps };
+
+interface BottomLinksProps {
+  route_1: string;
+  route_2: string;
+  route_3: string;
+  route_4: string;
+  icon_1: React.ReactNode;
+  icon_2: React.ReactNode;
+  icon_3: React.ReactNode;
+  icon_4: React.ReactNode;
+}
+
+export type { BottomLinksProps };

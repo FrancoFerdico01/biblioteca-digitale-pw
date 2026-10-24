@@ -20,16 +20,16 @@ const Sidebar = () => {
           <nav className="sidebar-nav">
             <ul className="sidebar-list">
               <li className="sidebar-item">
-                <Link to="/dashboard"><MdOutlineDashboard /> Dashboard</Link>
+                <Link to="/dashboard"><MdOutlineDashboard />Dashboard</Link>
               </li>
               <li className="sidebar-item">
-                <Link to="/dashboard/events"><MdCalendarMonth /> Eventi</Link>
+                <Link to="/dashboard/events"><MdCalendarMonth />Eventi</Link>
               </li>
               <li className="sidebar-item">
-                <Link to="/dashboard/catalog"><MdLibraryBooks /> Catalogo Libri</Link>
+                <Link to="/dashboard/catalog"><MdLibraryBooks />Catalogo Libri</Link>
               </li>
               <li className="sidebar-item">
-                <Link to="/dashboard/community"><MdPeople /> Community</Link>
+                <Link to="/dashboard/community"><MdPeople />Community</Link>
               </li>
             </ul>
           </nav>

@@ -196,4 +196,10 @@
   }
 }
 
+@media (max-width: 969px) {
+  .footer {
+    padding-bottom: 110px;
+  }
+}
+
 
