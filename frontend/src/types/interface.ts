@@ -14,9 +14,9 @@ interface CardProps {
 export type { CardProps };
 
 interface WrapperProps<T> {
-  subtitle: string;
-  title: string;
-  description: string;
+  subtitle?: string;
+  title?: string;
+  description?: string;
   items: T[];
   renderItem: (item: T) => React.ReactNode;
 }
@@ -76,3 +76,28 @@ interface BottomLinksProps {
 }
 
 export type { BottomLinksProps };
+
+  interface StatTileProps {
+  title: string;
+  value: number;
+  description: string;
+  icon?: React.ReactNode;
+}
+
+export type { StatTileProps };
+
+type TableRow = [
+  React.ReactNode,
+  React.ReactNode,
+  React.ReactNode,
+  React.ReactNode,
+  React.ReactNode,
+];
+
+interface InfoTableProps {
+  caption?: string;
+  headers: [string, string, string, string, string];
+  rows: TableRow[];
+}
+
+export type { InfoTableProps, TableRow };

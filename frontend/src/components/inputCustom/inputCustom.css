@@ -1,3 +1,9 @@
+.input-custom-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .input-custom {
   padding: 8px;
   border: 1px solid #ccc;

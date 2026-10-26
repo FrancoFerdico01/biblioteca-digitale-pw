@@ -1,7 +1,6 @@
 import type { WrapperProps } from "../../types/interface";
 import "./wrapper.css";
 
-// Usiamo <T,> per indicare che è un componente generico in TypeScript/JSX
 const Wrapper = <T,>({ subtitle, title, description, items, renderItem }: WrapperProps<T>) => {
   return (
     <div className="wrapper-container">

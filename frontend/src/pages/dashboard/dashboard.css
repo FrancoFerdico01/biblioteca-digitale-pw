@@ -1,0 +1,91 @@
+.dashboard {
+  background-color: #f8f9ff;
+  padding: 20px;
+  padding-bottom: 100px;
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-user {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.dashboard-actions {
+  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dashboard-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dashboard-section-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(14, 100, 212);
+}
+
+.dashboard-section-header {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px; 
+}
+
+.dashboard-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dashboard-wrapper .wrapper-container {
+  max-width: none;
+}
+
+.dashboard-wrapper .wrapper-cards-container {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  overflow: visible;
+}
+
+.dashboard-wrapper .wrapper-cards-container > * {
+  min-width: 0;
+}
+
+.dashboard-section-description {
+  color: #555;
+}
+
+.dashboard-operations {
+  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+@media (min-width: 1024px) {
+  .dashboard-operations {
+    flex-wrap: nowrap;
+  }
+}
+
+@media (max-width: 1023px) {
+  .dashboard-wrapper .wrapper-cards-container {
+    display: flex;
+    overflow-x: auto;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  .dashboard-actions {
+    flex-wrap: nowrap;
+  }
+}

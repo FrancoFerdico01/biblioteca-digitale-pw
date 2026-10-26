@@ -1,14 +1,30 @@
 import type { InputCustomProps } from "../../types/interface";
 import "./inputCustom.css";
 
-const InputCustom = ({ type, required, label, value, onChange }: InputCustomProps) => {
-
+const InputCustom = ({
+  type,
+  required,
+  label,
+  value,
+  onChange,
+}: InputCustomProps) => {
   return (
-    <>
-    <label className="input-custom-label" htmlFor={type}>{label}:</label>
-    <input placeholder={label} type={type} id={type} name={type} required={required} value={value} onChange={onChange} className="input-custom" />
-    </>
-  )
-}
+    <div className="input-custom-container">
+      <label className="input-custom-label" htmlFor={type}>
+        {label}:
+      </label>
+      <input
+        placeholder={label}
+        type={type}
+        id={type}
+        name={type}
+        required={required}
+        value={value}
+        onChange={onChange}
+        className="input-custom"
+      />
+    </div>
+  );
+};
 
-export default InputCustom
+export default InputCustom;
