@@ -3,6 +3,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import { FaArrowRightLong } from "react-icons/fa6";
 import type { FilterCategory } from "../../types/types";
 import type { FilterProps } from "../../types/interface";
+import {useLocation} from "react-router-dom";
 import "./filter.css";
 
 const categories: { value: FilterCategory; label: string }[] = [
@@ -13,6 +14,8 @@ const categories: { value: FilterCategory; label: string }[] = [
 
 const Filter = ({ category, onCategoryChange, onSearch }: FilterProps) => {
   const [inputValue, setInputValue] = useState("");
+
+  const location = useLocation();
 
   const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,7 +30,7 @@ const Filter = ({ category, onCategoryChange, onSearch }: FilterProps) => {
           <input
             className="filter-input"
             type="text"
-            placeholder="Cerca eventi, visite guidate o titoli di libri..."
+            placeholder="Cerca eventi, visite guidate..."
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
@@ -37,7 +40,8 @@ const Filter = ({ category, onCategoryChange, onSearch }: FilterProps) => {
           <FaArrowRightLong size={16} style={{ marginLeft: "5px" }} />
         </button>
       </form>
-      <div className="filter-buttons">
+      {location.pathname === "/" ? (
+         <div className="filter-buttons">
         {categories.map(({ value, label }) => (
           <button
             key={value}
@@ -50,6 +54,10 @@ const Filter = ({ category, onCategoryChange, onSearch }: FilterProps) => {
           </button>
         ))}
       </div>
+      ) : (
+        null
+      )}
+     
     </div>
   );
 };

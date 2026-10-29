@@ -17,6 +17,7 @@ const Card = ({
   location,
   date,
   btnTextCard,
+  secondBtnTextCard,
 }: CardProps) => {
   return (
     <article className="card">
@@ -59,16 +60,17 @@ const Card = ({
             </span>
           )}
         </div>
-        {btnTextCard ? (
+        {btnTextCard && (
           <button className="card-booking-button">
             <PiBookmarksBold size={14} />
             {btnTextCard}
           </button>
-        ) : (
+        )}
+        {secondBtnTextCard && (
           <div className="card-booking-availability-container">
             <div className="card-booking-availability">
               <TbPointFilled size={14} />
-              Disponibile al prestito
+              {secondBtnTextCard}
             </div>
             <button
               className="card-booking-availability-button"

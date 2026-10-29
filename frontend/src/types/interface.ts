@@ -3,12 +3,13 @@ interface CardProps {
   image: string;
   duration: string;
   title: string;
-  description: string;
+  description?: string;
   available_places?: number;
   available_books?: number;
   location: string;
   date?: string;
   btnTextCard?: string;
+  secondBtnTextCard?: string;
 }
 
 export type { CardProps };
@@ -23,7 +24,7 @@ interface WrapperProps<T> {
 
 export type { WrapperProps };
 interface FilterProps {
-  category: FilterCategory;
+  category?: FilterCategory;
   onCategoryChange: (category: FilterCategory) => void;
   onSearch: (term: string) => void;
 }

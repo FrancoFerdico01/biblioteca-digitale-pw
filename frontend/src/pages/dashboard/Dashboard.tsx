@@ -11,24 +11,28 @@ import { IoIosFlash } from "react-icons/io";
 
 const stats = [
   {
+    id: 1,
     title: "Libri Prestati",
     value: 39,
     description: "tanti libri prestati",
     icon: <FaBook />,
   },
   {
+    id: 2,
     title: "Prenotazioni",
     value: 62,
     description: "tante prenotazioni",
     icon: <PiBookmarksBold />,
   },
   {
+    id: 3,
     title: "Eventi a calendario",
     value: 15,
     description: "tanti eventi",
     icon: <FaCalendarAlt />,
   },
   {
+    id: 4,
     title: "Utenti Registrati",
     value: 120,
     description: "tanti utenti registrati",
@@ -59,6 +63,7 @@ const Dashboard = () => {
             items={stats}
             renderItem={(item) => (
               <StatTile
+                key={item.id}
                 title={item.title}
                 value={item.value}
                 description={item.description}
