@@ -1,0 +1,13 @@
+{
+  "deleteConfirm": "Eliminare il libro \"{{title}}\"?",
+  "deleteSuccess": "Libro eliminato con successo!",
+  "unexpectedError": "Errore imprevisto",
+  "title": "Il nostro Catalogo",
+  "description": "Qui puoi vedere tutto il catalogo o aggiungere un nuovo libro.",
+  "loadError": "Impossibile caricare il catalogo: {{error}}",
+  "availableBooks": "Libri Disponibili",
+  "addBook": "Aggiungi Libro",
+  "addDescription": "Compila il modulo sottostante per aggiungere un nuovo libro al catalogo.",
+  "publishTitle": "Pubblica nuovo libro!",
+  "publishDescription": "Compila i campi richiesti per pubblicare un nuovo libro."
+}

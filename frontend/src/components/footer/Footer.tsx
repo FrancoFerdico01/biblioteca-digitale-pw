@@ -14,36 +14,38 @@ import { TbWorld } from "react-icons/tb";
 import CustomButton from "../customButton/CustomButton";
 import { RiGitRepositoryPrivateLine } from "react-icons/ri";
 import Modal from "../modal/Modal";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
   const [openModal, setOpenModal] = useState(false);
+  const { t } = useTranslation("footer");
   return (
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-content">
           <div className="footer-opening-title">
             <MdAccessTime className="footer-opening-icon" />{" "}
-            <h3>Orari di Apertura</h3>
+            <h3>{t("openingHours")}</h3>
           </div>
           <ul className="footer-ul-opening">
             <li className="footer-li-opening">
-              <span className="footer-opening-day">Lunedì - Venerdì:</span>
+              <span className="footer-opening-day">{t("weekdays")}</span>
               <span className="footer-opening-hour">09:00 - 18:00</span>
             </li>
             <li className="footer-li-opening">
-              <span className="footer-opening-day">Sabato:</span>
+              <span className="footer-opening-day">{t("saturday")}</span>
               <span className="footer-opening-hour">09:00 - 13:00</span>
             </li>
             <li className="footer-li-opening">
-              <span className="footer-opening-day">Domenica:</span>
-              <span className="footer-opening-hour">Chiuso</span>
+              <span className="footer-opening-day">{t("sunday")}</span>
+              <span className="footer-opening-hour">{t("closed")}</span>
             </li>
           </ul>
         </div>
         <div className="footer-content">
           <div className="footer-contacts-title">
             <FiPhone className="footer-contacts-icon" />
-            <h3>Contatti Diretti</h3>
+            <h3>{t("contacts")}</h3>
           </div>
           <ul className="footer-ul-contacts">
             <li className="footer-li-contacts">
@@ -54,14 +56,14 @@ const Footer = () => {
             </li>
             <li className="footer-li-contacts">
               <MdOutlineMessage />
-              Assistenza: +39 091 1234567
+              {t("assistance")}
             </li>
           </ul>
         </div>
         <div className="footer-content">
           <div className="footer-social-title">
             <TbWorld className="footer-social-icon" />
-            <h3>Seguici sui Social</h3>
+            <h3>{t("social")}</h3>
           </div>
           <ul className="footer-ul-social">
             <li className="footer-li-social">
@@ -103,17 +105,18 @@ const Footer = () => {
           <span className="footer-brand-title">BiblioHub</span>
         </div>
          <span className="footer-brand-description">
-            Rete bibliotecaria civica
+            {t("description")}
           </span>
-        <p className="footer-bottom-text">&copy; 2025 Biblioteca Digitale. Tutti i diritti riservati.</p>
+        <p className="footer-bottom-text">{t("copyright")}</p>
         <CustomButton onClick={() => setOpenModal(true)}>
-          <RiGitRepositoryPrivateLine /> Area Riservata
+          <RiGitRepositoryPrivateLine /> {t("reservedArea")}
         </CustomButton>
       </div>
       {openModal && (
         <Modal
-          title="Area Riservata"
-          paragraph="Accesso riservato all'amministratore."
+          title={t("reservedArea")}
+          paragraph={t("adminOnly")}
+          adminLogin
           onClose={() => setOpenModal(false)}
         />
       )}

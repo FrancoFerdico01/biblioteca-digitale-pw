@@ -1,0 +1,7 @@
+{
+  "delete": "Elimina",
+  "deleteTitle": "Elimina {{title}}",
+  "availableCopies": "{{count}} copie disponibili",
+  "availableSeats": "{{count}} posti disponibili",
+  "availableForLoan": "Disponibile al prestito"
+}

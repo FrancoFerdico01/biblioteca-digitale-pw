@@ -13,6 +13,14 @@
 .sidebar-nav {
   display: none;
 }
+.sidebar-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sidebar-language {
+  order: -1;
+}
 .sidebar-list {
   list-style: none;
   padding: 0;
@@ -89,9 +97,18 @@
     margin-top: auto;
     border-top: 1px solid #ccc;
     padding-top: 20px;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
     gap: 10px;
+  }
+
+  .sidebar-footer > .button {
+    grid-column: 1 / -1;
+  }
+
+  .sidebar-language {
+    order: 0;
   }
 
   .sidebar-user {

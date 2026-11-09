@@ -1,0 +1,10 @@
+{
+  "adminOnly": "Accesso riservato all'amministratore",
+  "unexpectedError": "Errore imprevisto",
+  "email": "Email",
+  "password": "Password",
+  "login": "Accedi",
+  "register": "Registrati",
+  "cancel": "Annulla",
+  "close": "Chiudi"
+}

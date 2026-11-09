@@ -4,15 +4,13 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import type { FilterCategory } from "../../types/types";
 import type { FilterProps } from "../../types/interface";
 import {useLocation} from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./filter.css";
 
-const categories: { value: FilterCategory; label: string }[] = [
-  { value: "all", label: "Tutti" },
-  { value: "events", label: "Eventi" },
-  { value: "books", label: "Libri" },
-];
+const categories: FilterCategory[] = ["all", "events", "books"];
 
 const Filter = ({ category, onCategoryChange, onSearch }: FilterProps) => {
+  const { t } = useTranslation("filter");
   const [inputValue, setInputValue] = useState("");
 
   const location = useLocation();
@@ -30,19 +28,19 @@ const Filter = ({ category, onCategoryChange, onSearch }: FilterProps) => {
           <input
             className="filter-input"
             type="text"
-            placeholder="Cerca eventi, visite guidate..."
+            placeholder={t("placeholder")}
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
         </div>
         <button className="filter-button" type="submit">
-          Cerca
+          {t("search")}
           <FaArrowRightLong size={16} style={{ marginLeft: "5px" }} />
         </button>
       </form>
       {location.pathname === "/" ? (
          <div className="filter-buttons">
-        {categories.map(({ value, label }) => (
+        {categories.map((value) => (
           <button
             key={value}
             type="button"
@@ -50,7 +48,7 @@ const Filter = ({ category, onCategoryChange, onSearch }: FilterProps) => {
             aria-pressed={category === value}
             onClick={() => onCategoryChange(value)}
           >
-            {label}
+            {t(value)}
           </button>
         ))}
       </div>

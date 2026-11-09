@@ -1,5 +1,20 @@
 # React + Vite
 
+## Traduzioni
+
+La lingua si seleziona nella navbar o nella sidebar dell'area riservata;
+su mobile è accanto all'utente nella navbar e al logout nell'area riservata.
+Il componente condiviso `LanguageSelector` salva la scelta in `localStorage`
+tramite la configurazione i18next.
+Le stringhe della home, del login, dell'area amministrativa e dei loro componenti si trovano nei rispettivi
+file `locales/it.json` e `locales/en.json`. Per aggiungere un componente,
+crea entrambi i file, registrali in `src/i18n/index.ts` e usa il relativo
+namespace con `useTranslation`. Le stringhe condivise si trovano in
+`src/i18n/locales/common/`.
+
+Titoli, descrizioni e altri dati restituiti dal backend, così come i suoi
+messaggi di errore, non vengono tradotti automaticamente.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

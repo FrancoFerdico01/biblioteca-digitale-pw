@@ -8,8 +8,10 @@ import { BsBookmarkCheck } from "react-icons/bs";
 import { MdCalendarMonth, MdLibraryBooks } from "react-icons/md";
 import { IoMdHome } from "react-icons/io";
 import BottomLinks from "../../components/bottomLinks/BottomLinks";
+import { useTranslation } from "react-i18next";
 
 const AuthLayout: React.FC = () => {
+  const { t } = useTranslation("authLayout");
   return (
     <>
       <Navbar />
@@ -18,10 +20,9 @@ const AuthLayout: React.FC = () => {
           <div className="auth-layout-sidebar">
             <div className="auth-layout-sidebar-content">
               <Brand />
-              <h1 className="auth-layout-sidebar-title">Accedi o registrati alla biblioteca digitale.</h1>
+              <h1 className="auth-layout-sidebar-title">{t("title")}</h1>
               <p className="auth-layout-sidebar-text">
-                Esplora un universo infinito di libri, saggi e documenti a
-                portata di click.
+                {t("description")}
               </p>
             </div>
           </div>

@@ -1,0 +1,13 @@
+{
+  "deleteConfirm": "Delete the book \"{{title}}\"?",
+  "deleteSuccess": "Book deleted successfully!",
+  "unexpectedError": "Unexpected error",
+  "title": "Our Catalog",
+  "description": "Here you can view the entire catalog or add a new book.",
+  "loadError": "Unable to load the catalog: {{error}}",
+  "availableBooks": "Available Books",
+  "addBook": "Add Book",
+  "addDescription": "Fill in the form below to add a new book to the catalog.",
+  "publishTitle": "Publish a new book!",
+  "publishDescription": "Fill in the required fields to publish a new book."
+}

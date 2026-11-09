@@ -1,0 +1,21 @@
+{
+  "eventSuccess": "Evento pubblicato con successo!",
+  "bookSuccess": "Libro pubblicato con successo!",
+  "unexpectedError": "Errore imprevisto",
+  "eventTitle": "Titolo Evento",
+  "eventDescription": "Descrizione Evento",
+  "eventTime": "Ora Evento",
+  "eventLocation": "Luogo Evento",
+  "eventSeats": "Numero Partecipanti",
+  "eventDate": "Data Evento",
+  "eventImage": "Immagine Evento",
+  "publishEvent": "Pubblica Evento",
+  "bookTitle": "Titolo Libro",
+  "bookDescription": "Descrizione Libro",
+  "author": "Autore",
+  "genre": "Genere",
+  "copies": "Copie disponibili",
+  "pickupLocation": "Luogo del ritiro",
+  "bookImage": "Immagine Libro",
+  "publishBook": "Pubblica Libro"
+}

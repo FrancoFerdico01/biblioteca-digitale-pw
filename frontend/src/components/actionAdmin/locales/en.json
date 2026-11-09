@@ -1,0 +1,21 @@
+{
+  "eventSuccess": "Event published successfully!",
+  "bookSuccess": "Book published successfully!",
+  "unexpectedError": "Unexpected error",
+  "eventTitle": "Event Title",
+  "eventDescription": "Event Description",
+  "eventTime": "Event Time",
+  "eventLocation": "Event Location",
+  "eventSeats": "Number of Participants",
+  "eventDate": "Event Date",
+  "eventImage": "Event Image",
+  "publishEvent": "Publish Event",
+  "bookTitle": "Book Title",
+  "bookDescription": "Book Description",
+  "author": "Author",
+  "genre": "Genre",
+  "copies": "Available Copies",
+  "pickupLocation": "Pickup Location",
+  "bookImage": "Book Image",
+  "publishBook": "Publish Book"
+}

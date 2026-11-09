@@ -5,6 +5,7 @@ import { PiBookmarksBold } from "react-icons/pi";
 import { FaCalendarAlt } from "react-icons/fa";
 import { FaRegBookmark } from "react-icons/fa";
 import { TbPointFilled } from "react-icons/tb";
+import { useTranslation } from "react-i18next";
 import "./card.css";
 
 const Card = ({
@@ -22,6 +23,7 @@ const Card = ({
   onSecondBtnClick,
   onDelete,
 }: CardProps) => {
+  const { t } = useTranslation("card");
   return (
     <article className="card">
       <div className="card-media">
@@ -40,8 +42,8 @@ const Card = ({
           <button
             type="button"
             className="card-delete-button"
-            title="Elimina"
-            aria-label={`Elimina ${title}`}
+            title={t("delete")}
+            aria-label={t("deleteTitle", { title })}
             onClick={onDelete}
           >
             <FaTrashCan size={14} />
@@ -55,12 +57,12 @@ const Card = ({
           {available_books !== undefined ? (
             <span className="card-availability">
               <PiBookOpenText aria-hidden="true" />
-              {available_books} copie disponibili
+              {t("availableCopies", { count: available_books })}
             </span>
           ) : (
             <span className="card-availability">
               <FaUsers aria-hidden="true" />
-              {available_places} posti disponibili
+              {t("availableSeats", { count: available_places })}
             </span>
           )}
           <span className="card-location">
@@ -88,7 +90,7 @@ const Card = ({
             </div>
             <button
               className="card-booking-availability-button"
-              title="Disponibile al prestito"
+              title={t("availableForLoan")}
               onClick={onSecondBtnClick}
             >
               <FaRegBookmark size={14} />

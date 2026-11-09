@@ -5,6 +5,8 @@ import Toast from "../toast/Toast";
 import { ApiError, createBook, createEvent } from "../../services/api";
 import { FaCalendarAlt } from "react-icons/fa";
 import { PiBookOpenText } from "react-icons/pi";
+import { useTranslation } from "react-i18next";
+import { getErrorMessage } from "../../i18n/errorMessage";
 import "./actionAdmin.css";
 
 // Ogni campo del form ha un name univoco nella pagina; qui si mappa al nome atteso dal backend
@@ -29,16 +31,24 @@ const BOOK_FIELDS: [string, string][] = [
 ];
 
 const ActionAdmin = ({
+  kind,
   title,
   subtitle,
   onPublished,
 }: {
+  kind: "event" | "book";
   title: string;
   subtitle: string;
   onPublished?: () => void;
 }) => {
-  const isEvent = title === "Pubblica nuovo evento!";
-  const [toast, setToast] = useState<{ id: number; type: "success" | "error"; text: string } | null>(null);
+  const { t } = useTranslation("actionAdmin");
+  const isEvent = kind === "event";
+  const [toast, setToast] = useState<
+    | { id: number; type: "success"; key: "eventSuccess" | "bookSuccess" }
+    | { id: number; type: "error"; error: ApiError }
+    | { id: number; type: "error"; key: "unexpectedError" }
+    | null
+  >(null);
   const [sending, setSending] = useState(false);
   const closeToast = useCallback(() => setToast(null), []);
 
@@ -64,14 +74,12 @@ const ActionAdmin = ({
       setToast({
         id: Date.now(),
         type: "success",
-        text: isEvent ? "Evento pubblicato con successo!" : "Libro pubblicato con successo!",
+        key: isEvent ? "eventSuccess" : "bookSuccess",
       });
     } catch (err) {
-      setToast({
-        id: Date.now(),
-        type: "error",
-        text: err instanceof ApiError ? err.message : "Errore imprevisto",
-      });
+      setToast(err instanceof ApiError
+        ? { id: Date.now(), type: "error", error: err }
+        : { id: Date.now(), type: "error", key: "unexpectedError" });
     } finally {
       setSending(false);
     }
@@ -84,50 +92,50 @@ const ActionAdmin = ({
         <p>{subtitle}</p>
       </div>
       <form className="actionAdmin-form" onSubmit={handleSubmit}>
-        {title === "Pubblica nuovo evento!" ? (
+        {isEvent ? (
           <>
             <div className="actionAdmin-form-row">
-              <InputCustom label="Titolo Evento" type="text" name="evento_titolo" required />
-              <InputCustom label="Descrizione Evento" type="text" name="evento_descrizione" />
+              <InputCustom label={t("eventTitle")} type="text" name="evento_titolo" required />
+              <InputCustom label={t("eventDescription")} type="text" name="evento_descrizione" />
             </div>
             <div className="actionAdmin-form-row">
-            <InputCustom label="Ora Evento" type="time" name="evento_ora" required />
-            <InputCustom label="Luogo Evento" type="text" name="evento_luogo" required />
+            <InputCustom label={t("eventTime")} type="time" name="evento_ora" required />
+            <InputCustom label={t("eventLocation")} type="text" name="evento_luogo" required />
             </div>
             <div className="actionAdmin-form-row">
-            <InputCustom label="Numero Partecipanti" type="number" name="evento_partecipanti" required />
-            <InputCustom label="Data Evento" type="date" name="evento_data" required />
+            <InputCustom label={t("eventSeats")} type="number" name="evento_partecipanti" required />
+            <InputCustom label={t("eventDate")} type="date" name="evento_data" required />
             </div>
             <div className="actionAdmin-form-row">
-            <InputCustom label="Immagine Evento" type="file" name="immagine_evento" accept="image/*" />
+            <InputCustom label={t("eventImage")} type="file" name="immagine_evento" accept="image/*" />
             </div>
-            <CustomButton onClick={() => {}} disabled={sending}>Pubblica Evento</CustomButton>
+            <CustomButton onClick={() => {}} disabled={sending}>{t("publishEvent")}</CustomButton>
           </>
         ) : (
           <>
           <div className="actionAdmin-form-row">
-            <InputCustom label="Titolo Libro" type="text" name="libro_titolo" required />
-            <InputCustom label="Descrizione Libro" type="text" name="libro_descrizione" />
+            <InputCustom label={t("bookTitle")} type="text" name="libro_titolo" required />
+            <InputCustom label={t("bookDescription")} type="text" name="libro_descrizione" />
           </div>
           <div className="actionAdmin-form-row">
-            <InputCustom label="Autore" type="text" name="libro_autore" required />
-            <InputCustom label="Genere" type="text" name="libro_genere" />
+            <InputCustom label={t("author")} type="text" name="libro_autore" required />
+            <InputCustom label={t("genre")} type="text" name="libro_genere" />
           </div>
           <div className="actionAdmin-form-row">
-            <InputCustom label="Copie disponibili" type="number" name="libro_copie" required />
-            <InputCustom label="Luogo del ritiro" type="text" name="libro_ritiro" />
+            <InputCustom label={t("copies")} type="number" name="libro_copie" required />
+            <InputCustom label={t("pickupLocation")} type="text" name="libro_ritiro" />
           </div>
           <div className="actionAdmin-form-row">
-            <InputCustom label="Immagine Libro" type="file" name="immagine_libro" accept="image/*" />
+            <InputCustom label={t("bookImage")} type="file" name="immagine_libro" accept="image/*" />
           </div>
-          <CustomButton onClick={() => {}} disabled={sending}>Pubblica Libro</CustomButton>
+          <CustomButton onClick={() => {}} disabled={sending}>{t("publishBook")}</CustomButton>
           </>
         )}
       </form>
       {toast && (
         <Toast
           key={toast.id}
-          message={toast.text}
+          message={"key" in toast ? t(toast.key) : getErrorMessage(toast.error)}
           type={toast.type}
           icon={isEvent ? <FaCalendarAlt /> : <PiBookOpenText />}
           onClose={closeToast}

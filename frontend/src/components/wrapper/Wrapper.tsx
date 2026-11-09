@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import type { WrapperProps } from "../../types/interface";
+import { useTranslation } from "react-i18next";
 import "./wrapper.css";
 
 const Wrapper = <T,>({ subtitle, title, description, items, renderItem }: WrapperProps<T>) => {
+  const { t } = useTranslation("wrapper");
   const cardsRef = useRef<HTMLDivElement>(null);
   const [canScroll, setCanScroll] = useState({ left: false, right: false });
 
@@ -44,10 +46,10 @@ const Wrapper = <T,>({ subtitle, title, description, items, renderItem }: Wrappe
         </div>
         {(canScroll.left || canScroll.right) && (
           <div className="wrapper-arrows">
-            <button type="button" className="wrapper-arrow" onClick={() => scrollBy(-1)} disabled={!canScroll.left} aria-label="Scorri a sinistra">
+            <button type="button" className="wrapper-arrow" onClick={() => scrollBy(-1)} disabled={!canScroll.left} aria-label={t("scrollLeft")}>
               ‹
             </button>
-            <button type="button" className="wrapper-arrow" onClick={() => scrollBy(1)} disabled={!canScroll.right} aria-label="Scorri a destra">
+            <button type="button" className="wrapper-arrow" onClick={() => scrollBy(1)} disabled={!canScroll.right} aria-label={t("scrollRight")}>
               ›
             </button>
           </div>

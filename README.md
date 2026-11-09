@@ -3,7 +3,9 @@ Project Work per Laurea Triennale in Informatica per le aziende digitali L-31 - 
 
 ## Avvio in locale
 
-Requisiti: Python 3.13 e Node.js (con npm).
+Requisiti: Python 3.13 e Node.js con npm. Per il frontend usa Node.js
+20.19 o successivo della serie 20, 22.13 o successivo della serie 22,
+oppure Node.js 24 o successivo. Node.js 16 non è compatibile con Vite.
 
 ### 1. Backend
 
@@ -35,8 +37,13 @@ Per rieseguire l'importazione manualmente, con il backend fermo: `.\.venv\Script
 Dalla cartella `frontend/`, in un altro terminale:
 
 ```powershell
+node --version
 npm install
 npm run dev
 ```
+
+Se usi nvm per Windows e hai già installato Node.js 22.21.1, selezionalo
+con `nvm use 22.21.1` prima di avviare il frontend. Se il terminale continua
+a mostrare una versione diversa, riaprilo e verifica `node --version`.
 
 L'app è disponibile su `http://localhost:5173`. Se il backend gira su un indirizzo diverso da `http://localhost:8000`, imposta la variabile `VITE_API_URL` in `frontend/.env`.

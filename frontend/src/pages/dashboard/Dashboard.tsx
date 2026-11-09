@@ -10,11 +10,14 @@ import InfoTable from "../../components/infoTable/InfoTable";
 import { IoIosFlash } from "react-icons/io";
 import { useEffect, useState } from "react";
 import { getActiveBookings, getActiveLoans, getBookingsCount, getEvents, getUsers, type EventBookingItem, type LoanItem } from "../../services/api";
+import { useTranslation } from "react-i18next";
 
-const formatDate = (value: string) =>
-  new Date(value.length === 10 ? `${value}T00:00:00` : value).toLocaleDateString("it-IT");
+const formatDate = (value: string, locale: string) =>
+  new Date(value.length === 10 ? `${value}T00:00:00` : value).toLocaleDateString(locale);
 
 const Dashboard = () => {
+  const { t, i18n } = useTranslation("dashboard");
+  const dateLocale = i18n.resolvedLanguage === "en" ? "en-GB" : "it-IT";
   const [userCount, setUserCount] = useState(0);
   const [eventCount, setEventCount] = useState(0);
   const [bookingCount, setBookingCount] = useState(0);
@@ -54,48 +57,47 @@ const Dashboard = () => {
   const statItems = [
     {
       id: 1,
-      title: "Libri Prestati",
+      title: t("loanedBooks"),
       value: activeLoans.length,
-      description: `Ci sono attualmente ${activeLoans.length} libri in prestito`,
+      description: t("loanedBooksDescription", { number: activeLoans.length }),
       icon: <FaBook />,
     },
     {
       id: 3,
-      title: "Prenotazioni",
+      title: t("bookings"),
       value: bookingCount,
-      description: `Ci sono attualmente ${bookingCount} prenotazioni`,
+      description: t("bookingsDescription", { number: bookingCount }),
       icon: <PiBookmarksBold />,
     },
     {
       id: 4,
-      title: "Utenti Registrati",
+      title: t("registeredUsers"),
       value: userCount,
-      description: `Ci sono attualmente ${userCount} utenti registrati`,
+      description: t("registeredUsersDescription", { number: userCount }),
       icon: <MdPeople />,
     },
     {
       id: 5,
-      title: "Eventi in Calendario",
+      title: t("scheduledEvents"),
       value: eventCount,
-      description: `Ci sono attualmente ${eventCount} eventi`,
+      description: t("scheduledEventsDescription", { number: eventCount }),
       icon: <FaCalendarAlt />,
     },
   ];
 
   return (
     <div className="dashboard">
-      <h1 className="dashboard-user">CIAO FRANCESCO</h1>
+      <h1 className="dashboard-user">{t("greeting")}</h1>
       <div className="dashboard-section">
         <div className="dashboard-section-header">
           <div className="dashboard-section-title">
             <span className="dashboard-section-icon">
               <ImStatsBars size={24} />
             </span>
-            <h2>1. Panoramica Generale</h2>
+            <h2>{t("overview")}</h2>
           </div>
           <p className="dashboard-section-description">
-            Qui puoi vedere una panoramica generale delle tue statistiche
-            principali.
+            {t("overviewDescription")}
           </p>
         </div>
 
@@ -120,22 +122,23 @@ const Dashboard = () => {
             <span className="dashboard-section-icon">
               <IoIosFlash size={24} />
             </span>
-            <h2>2. Azioni rapide</h2>
+            <h2>{t("quickActions")}</h2>
           </div>
           <p className="dashboard-section-description">
-            Qui puoi eseguire rapidamente alcune azioni come pubblicare nuovi
-            eventi o libri.
+            {t("quickActionsDescription")}
           </p>
         </div>
 
         <div className="dashboard-actions">
           <ActionAdmin
-            title="Pubblica nuovo evento!"
-            subtitle="Compila i campi richiesti per pubblicare un nuovo evento."
+            kind="event"
+            title={t("events:publishTitle")}
+            subtitle={t("events:publishDescription")}
           />
           <ActionAdmin
-            title="Pubblica nuovo libro!"
-            subtitle="Compila i campi richiesti per pubblicare un nuovo libro."
+            kind="book"
+            title={t("catalog:publishTitle")}
+            subtitle={t("catalog:publishDescription")}
           />
         </div>
       </div>
@@ -145,37 +148,37 @@ const Dashboard = () => {
             <span className="dashboard-section-icon">
               <MdOutlineTableChart size={24} />
             </span>
-            <h2>3. Gestione Operativa</h2>
+            <h2>{t("operations")}</h2>
           </div>
           <p className="dashboard-section-description">
-            Qui puoi gestire le operazioni attive come prestiti e eventi.
+            {t("operationsDescription")}
           </p>
         </div>
 
         <div className="dashboard-operations">
           <InfoTable
-            caption="Prestiti attivi"
-            headers={["Titolo", "Utente", "Data prestito", "Scadenza", "Stato"]}
+            caption={t("activeLoans")}
+            headers={[t("title"), t("user"), t("loanDate"), t("dueDate"), t("status")]}
             rows={activeLoans.map((loan) => {
               const overdue = new Date(`${loan.due_date}T00:00:00`) < new Date(new Date().toDateString());
               return [
                 loan.book.title,
                 `${loan.user.first_name} ${loan.user.last_name}`,
-                formatDate(loan.start_date),
-                formatDate(loan.due_date),
-                overdue ? "In ritardo" : "In corso",
+                formatDate(loan.start_date, dateLocale),
+                formatDate(loan.due_date, dateLocale),
+                overdue ? t("overdue") : t("inProgress"),
               ];
             })}
           />
           <InfoTable
-            caption="Prenotazioni agli eventi"
-            headers={["Utente", "Evento", "Data", "Posti", "Prenotato"]}
+            caption={t("eventBookings")}
+            headers={[t("user"), t("event"), t("date"), t("seats"), t("booked")]}
             rows={activeBookings.map((booking) => [
               `${booking.user.first_name} ${booking.user.last_name}`,
               booking.event.title,
-              formatDate(booking.event.event_date),
+              formatDate(booking.event.event_date, dateLocale),
               booking.seats,
-              formatDate(booking.created_at),
+              formatDate(booking.created_at, dateLocale),
             ])}
           />
 

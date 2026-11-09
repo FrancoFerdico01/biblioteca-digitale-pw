@@ -1,0 +1,10 @@
+{
+  "adminOnly": "Access restricted to administrators",
+  "unexpectedError": "Unexpected error",
+  "email": "Email",
+  "password": "Password",
+  "login": "Sign in",
+  "register": "Register",
+  "cancel": "Cancel",
+  "close": "Close"
+}

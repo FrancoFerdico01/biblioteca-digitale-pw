@@ -2,17 +2,21 @@ import InfoTable from "../../components/infoTable/InfoTable";
 import { FaUsers } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { getUsers, type User } from "../../services/api";
+import { getErrorMessage } from "../../i18n/errorMessage";
+import { useTranslation } from "react-i18next";
 import "./community.css";
 
 const Community = () => {
+  const { t, i18n } = useTranslation("community");
+  const dateLocale = i18n.resolvedLanguage === "en" ? "en-GB" : "it-IT";
   const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getUsers()
       .then(setUsers)
-      .catch((err: Error) => setError(err.message))
+      .catch((err: Error) => setError(err))
       .finally(() => setLoading(false));
   }, []);
 
@@ -20,22 +24,22 @@ const Community = () => {
     <div className="community">
       <h1 className="community-title">
         <span className="community-icon"><FaUsers /></span>
-        La nostra Community
+        {t("title")}
         </h1>
-      <p className="community-description">Qui puoi vedere tutti gli utenti registrati.</p>
+      <p className="community-description">{t("description")}</p>
       <div>
-        {loading && <p>Caricamento utenti...</p>}
-        {error && <p>Impossibile caricare gli utenti: {error}</p>}
+        {loading && <p>{t("loading")}</p>}
+        {error && <p>{t("loadError", { error: getErrorMessage(error) })}</p>}
         {!loading && !error && (
           <InfoTable
-            caption={`Utenti registrati (${users.length})`}
-            headers={["ID", "Nome", "Email", "Telefono", "Iscritto da"]}
+            caption={t("users", { number: users.length })}
+            headers={[t("id"), t("name"), t("email"), t("phone"), t("registeredSince")]}
             rows={users.map((user, index) => [
               index + 1,
               `${user.first_name} ${user.last_name}`,
               user.email,
               user.phone ?? "-",
-              new Date(user.created_at).toLocaleDateString("it-IT"),
+              new Date(user.created_at).toLocaleDateString(dateLocale),
             ])}
           />
         )}

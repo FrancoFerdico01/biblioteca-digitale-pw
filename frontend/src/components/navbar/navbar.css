@@ -58,6 +58,12 @@
   letter-spacing: 0.5px;
 }
 
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .navbar-user {
   position: relative;
 }

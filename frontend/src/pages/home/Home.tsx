@@ -17,13 +17,14 @@ import {
   type EventItem,
 } from "../../services/api";
 import { FaBookOpen, FaCalendarDays, FaClock, FaLocationDot, FaUsers } from "react-icons/fa6";
+import { useTranslation } from "react-i18next";
 import "./home.css";
 
 const matchesTerm = (term: string, ...fields: string[]) =>
   term === "" || fields.some((field) => field.toLowerCase().includes(term));
 
-const formatDate = (isoDate: string) =>
-  new Date(`${isoDate}T00:00:00`).toLocaleDateString("it-IT", {
+const formatDate = (isoDate: string, locale: string) =>
+  new Date(`${isoDate}T00:00:00`).toLocaleDateString(locale, {
     weekday: "long",
     day: "numeric",
     month: "long",
@@ -31,6 +32,8 @@ const formatDate = (isoDate: string) =>
   });
 
 const Home = () => {
+  const { t, i18n } = useTranslation("home");
+  const dateLocale = i18n.resolvedLanguage === "en" ? "en-GB" : "it-IT";
   const [events, setEvents] = useState<EventItem[]>([]);
   const [books, setBooks] = useState<BookItem[]>([]);
   const [loaded, setLoaded] = useState(false);
@@ -78,12 +81,12 @@ const Home = () => {
           item.id === eventToBook.id ? { ...item, available_seats: item.available_seats - 1 } : item
         )
       );
-      setToast({ id: Date.now(), type: "success", text: `Prenotazione confermata per "${eventToBook.title}"!` });
+      setToast({ id: Date.now(), type: "success", text: t("bookingSuccess", { title: eventToBook.title }) });
     } catch (err) {
       setToast({
         id: Date.now(),
         type: "error",
-        text: err instanceof ApiError ? err.message : "Errore imprevisto",
+        text: err instanceof ApiError ? err.message : t("unexpectedError"),
       });
     } finally {
       setBooking(false);
@@ -113,13 +116,13 @@ const Home = () => {
       setToast({
         id: Date.now(),
         type: "success",
-        text: `Prestito confermato per "${bookToLoan.title}". Restituzione entro il ${new Date(`${loan.due_date}T00:00:00`).toLocaleDateString("it-IT")}.`,
+        text: t("loanSuccess", { title: bookToLoan.title, date: new Date(`${loan.due_date}T00:00:00`).toLocaleDateString(dateLocale) }),
       });
     } catch (err) {
       setToast({
         id: Date.now(),
         type: "error",
-        text: err instanceof ApiError ? err.message : "Errore imprevisto",
+        text: err instanceof ApiError ? err.message : t("unexpectedError"),
       });
     } finally {
       setLoaning(false);
@@ -146,21 +149,21 @@ const Home = () => {
       {loginModalOpen && (
         <Modal
           onClose={() => setLoginModalOpen(false)}
-          title="Prenotazione"
-          paragraph="Per prenotare devi effettuare l'accesso."
-          actionLabel="Accedi"
+          title={t("bookingTitle")}
+          paragraph={t("loginRequired")}
+          actionLabel={t("login")}
           actionTo="/login"
         />
       )}
       {selectedEvent && (
         <Modal
           onClose={() => setSelectedEvent(null)}
-          title="Conferma prenotazione"
-          paragraph={`Vuoi prenotare un posto per "${selectedEvent.title}"?`}
+          title={t("confirmBooking")}
+          paragraph={t("bookingQuestion", { title: selectedEvent.title })}
           details={
             <div className="modal-event-details">
               <span>
-                <FaCalendarDays aria-hidden="true" /> {formatDate(selectedEvent.event_date)}
+                <FaCalendarDays aria-hidden="true" /> {formatDate(selectedEvent.event_date, dateLocale)}
               </span>
               <span>
                 <FaClock aria-hidden="true" /> {selectedEvent.event_time}
@@ -169,38 +172,38 @@ const Home = () => {
                 <FaLocationDot aria-hidden="true" /> {selectedEvent.location}
               </span>
               <span>
-                <FaUsers aria-hidden="true" /> {selectedEvent.available_seats} posti disponibili
+                <FaUsers aria-hidden="true" /> {t("availableSeats", { count: selectedEvent.available_seats })}
               </span>
             </div>
           }
           onConfirm={confirmBooking}
-          confirmLabel="Conferma"
+          confirmLabel={t("confirm")}
           confirmDisabled={booking || selectedEvent.available_seats <= 0}
         />
       )}
       {selectedBook && (
         <Modal
           onClose={() => setSelectedBook(null)}
-          title="Conferma prestito"
-          paragraph={`Vuoi prendere in prestito "${selectedBook.title}"?`}
+          title={t("confirmLoan")}
+          paragraph={t("loanQuestion", { title: selectedBook.title })}
           details={
             <div className="modal-event-details">
               <span>
                 <FaBookOpen aria-hidden="true" /> {selectedBook.author}
               </span>
               <span>
-                <FaCalendarDays aria-hidden="true" /> Durata del prestito: 31 giorni
+                <FaCalendarDays aria-hidden="true" /> {t("loanDuration")}
               </span>
               <span>
-                <FaLocationDot aria-hidden="true" /> {selectedBook.pickup_location ?? "Banco prestito"}
+                <FaLocationDot aria-hidden="true" /> {selectedBook.pickup_location ?? t("pickupLocation")}
               </span>
               <span>
-                <FaUsers aria-hidden="true" /> {selectedBook.available_copies} copie disponibili
+                <FaUsers aria-hidden="true" /> {t("availableCopies", { count: selectedBook.available_copies })}
               </span>
             </div>
           }
           onConfirm={confirmLoan}
-          confirmLabel="Conferma"
+          confirmLabel={t("confirm")}
           confirmDisabled={loaning || selectedBook.available_copies <= 0}
         />
       )}
@@ -218,18 +221,18 @@ const Home = () => {
           onCategoryChange={setCategory}
           onSearch={setSearchTerm}
         />
-        {error && <p className="home-empty">Impossibile caricare il catalogo: {error}</p>}
+        {error && <p className="home-empty">{t("loadError", { error })}</p>}
         {loaded && !error && visibleEvents.length === 0 && visibleBooks.length === 0 && (
           <p className="home-empty">
-            Nessun risultato{searchTerm.trim() && ` per "${searchTerm.trim()}"`}.
+            {searchTerm.trim() ? t("noResultsFor", { term: searchTerm.trim() }) : t("noResults")}
           </p>
         )}
         {visibleEvents.length > 0 && (
           <section id="events">
             <Wrapper
-              subtitle="Calendario culturale aperto"
-              title="Eventi e Visite Disponibili"
-              description="Prenotazione online immediata e gratuita per tutti gli eventi e le visite disponibili."
+              subtitle={t("eventsSubtitle")}
+              title={t("eventsTitle")}
+              description={t("eventsDescription")}
               items={visibleEvents}
               renderItem={(event) => (
                 <Card
@@ -241,7 +244,7 @@ const Home = () => {
                   available_places={event.available_seats}
                   location={event.location}
                   date={event.event_date}
-                  btnTextCard="Prenota Posto"
+                  btnTextCard={t("bookSeat")}
                   onBtnClick={() => handleBooking(event)}
                 />
               )}
@@ -250,9 +253,9 @@ const Home = () => {
         )}
         {visibleBooks.length > 0 && (
           <Wrapper
-            subtitle="Prestiti immediati - sede centrale"
-            title="In Evidenza dal Catalogo"
-            description="Titoli più richiesti della settimana, ritirabili al banco prestito in giornata."
+            subtitle={t("booksSubtitle")}
+            title={t("booksTitle")}
+            description={t("booksDescription")}
             items={visibleBooks}
             renderItem={(book) => (
               <Card
@@ -263,7 +266,7 @@ const Home = () => {
                 description={book.author}
                 available_books={book.available_copies}
                 location={book.pickup_location ?? ""}
-                secondBtnTextCard="Disponibile al prestito"
+                secondBtnTextCard={t("availableForLoan")}
                 onSecondBtnClick={() => handleLoan(book)}
               />
             )}

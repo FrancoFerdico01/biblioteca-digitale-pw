@@ -1,0 +1,12 @@
+{
+  "title": "Our Community",
+  "description": "Here you can view all registered users.",
+  "loading": "Loading users...",
+  "loadError": "Unable to load users: {{error}}",
+  "users": "Registered users ({{number}})",
+  "id": "ID",
+  "name": "Name",
+  "email": "Email",
+  "phone": "Phone",
+  "registeredSince": "Registered since"
+}

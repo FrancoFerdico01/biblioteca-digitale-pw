@@ -1,0 +1,13 @@
+{
+  "deleteConfirm": "Delete the event \"{{title}}\"?",
+  "deleteSuccess": "Event deleted successfully!",
+  "unexpectedError": "Unexpected error",
+  "title": "Our Events",
+  "description": "Here you can view all available events or add new ones.",
+  "loadError": "Unable to load events: {{error}}",
+  "availableEvents": "Available Events and Visits",
+  "addEvent": "Add Event",
+  "addDescription": "Fill in the form below to add a new event to the list.",
+  "publishTitle": "Publish a new event!",
+  "publishDescription": "Fill in the required fields to publish a new event."
+}

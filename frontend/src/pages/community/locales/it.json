@@ -1,0 +1,12 @@
+{
+  "title": "La nostra Community",
+  "description": "Qui puoi vedere tutti gli utenti registrati.",
+  "loading": "Caricamento utenti...",
+  "loadError": "Impossibile caricare gli utenti: {{error}}",
+  "users": "Utenti registrati ({{number}})",
+  "id": "ID",
+  "name": "Nome",
+  "email": "Email",
+  "phone": "Telefono",
+  "registeredSince": "Iscritto da"
+}

@@ -38,6 +38,7 @@ interface ModalProps {
   onClose: () => void;
   title: string;
   paragraph: string;
+  adminLogin?: boolean;
   actionLabel?: string;
   actionTo?: string;
   details?: React.ReactNode;

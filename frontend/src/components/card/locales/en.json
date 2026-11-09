@@ -1,0 +1,7 @@
+{
+  "delete": "Delete",
+  "deleteTitle": "Delete {{title}}",
+  "availableCopies": "{{count}} copies available",
+  "availableSeats": "{{count}} places available",
+  "availableForLoan": "Available to borrow"
+}

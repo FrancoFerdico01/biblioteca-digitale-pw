@@ -1,0 +1,23 @@
+.language-selector {
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 4px 6px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.language-selector option {
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  background-color: white;
+}
+
+.language-selector option:checked,
+.language-selector option:hover {
+  background-color: rgb(14, 100, 212);
+  color: white;
+}

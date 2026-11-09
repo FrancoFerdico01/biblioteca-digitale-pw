@@ -6,18 +6,21 @@ import type { FormProps } from "../../types/interface";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, type FormEvent } from "react";
 import { ApiError, getMe, login, register } from "../../services/api";
+import { useTranslation } from "react-i18next";
+import { getErrorMessage } from "../../i18n/errorMessage";
 
 const Form = ({ headerText, buttonText, linkText }: FormProps) => {
+  const { t } = useTranslation("form");
   const location = useLocation();
   const navigate = useNavigate();
-  const [error, setError] = useState("");
+  const [error, setError] = useState<ApiError | "unexpected" | null>(null);
 
   const isLogin = location.pathname === "/login";
   const isRegister = location.pathname === "/register";
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError("");
+    setError(null);
     const data = new FormData(e.currentTarget);
     const email = String(data.get("email"));
     const password = String(data.get("password"));
@@ -36,7 +39,7 @@ const Form = ({ headerText, buttonText, linkText }: FormProps) => {
       const me = await getMe();
       navigate(me.is_admin ? "/dashboard" : "/");
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : "Errore imprevisto");
+      setError(err instanceof ApiError ? err : "unexpected");
     }
   };
 
@@ -50,10 +53,10 @@ const Form = ({ headerText, buttonText, linkText }: FormProps) => {
         {isLogin && (
           <>
             <div>
-              <InputCustom type="email" required label="Email" />
+              <InputCustom type="email" required label={t("email")} />
             </div>
             <div>
-              <InputCustom type="password" required label="Password" />
+              <InputCustom type="password" required label={t("password")} />
             </div>
           </>
         )}
@@ -66,18 +69,18 @@ const Form = ({ headerText, buttonText, linkText }: FormProps) => {
               <InputCustom type="text" name="last_name" required label="Cognome" />
             </div>
             <div>
-              <InputCustom type="email" required label="Email" />
+              <InputCustom type="email" required label={t("email")} />
             </div>
             <div>
               <InputCustom type="tel" name="phone" required label="Numero di telefono" />
             </div>
             <div>
-              <InputCustom type="password" required label="Password" />
+              <InputCustom type="password" required label={t("password")} />
             </div>
           </>
         )}
       </div>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p style={{ color: "red" }}>{error === "unexpected" ? t("unexpectedError") : getErrorMessage(error)}</p>}
       <CustomButton type="submit">{buttonText}</CustomButton>
       <a className="form-link" href="">
         {linkText}

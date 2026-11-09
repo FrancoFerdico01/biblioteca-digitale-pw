@@ -9,38 +9,44 @@ import "./events.css";
 import { MdCalendarMonth } from "react-icons/md";
 import ActionAdmin from "../../components/actionAdmin/ActionAdmin";
 import { FaCirclePlus } from "react-icons/fa6";
+import { useTranslation } from "react-i18next";
+import { getErrorMessage } from "../../i18n/errorMessage";
 
 const Events = () => {
+  const { t } = useTranslation("events");
   const [events, setEvents] = useState<EventItem[]>([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<Error | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState<FilterCategory>("all");
 
   const loadEvents = useCallback(() => {
     getEvents()
       .then(setEvents)
-      .catch((err: Error) => setError(err.message));
+      .catch((err: Error) => setError(err));
   }, []);
 
   useEffect(() => {
     loadEvents();
   }, [loadEvents]);
 
-  const [toast, setToast] = useState<{ id: number; type: "success" | "error"; text: string } | null>(null);
+  const [toast, setToast] = useState<
+    | { id: number; type: "success"; key: "deleteSuccess" }
+    | { id: number; type: "error"; error: ApiError }
+    | { id: number; type: "error"; key: "unexpectedError" }
+    | null
+  >(null);
   const closeToast = useCallback(() => setToast(null), []);
 
   const handleDelete = async (event: EventItem) => {
-    if (!window.confirm(`Eliminare l'evento "${event.title}"?`)) return;
+    if (!window.confirm(t("deleteConfirm", { title: event.title }))) return;
     try {
       await deleteEvent(event.id);
       loadEvents();
-      setToast({ id: Date.now(), type: "success", text: "Evento eliminato con successo!" });
+      setToast({ id: Date.now(), type: "success", key: "deleteSuccess" });
     } catch (err) {
-      setToast({
-        id: Date.now(),
-        type: "error",
-        text: err instanceof ApiError ? err.message : "Errore imprevisto",
-      });
+      setToast(err instanceof ApiError
+        ? { id: Date.now(), type: "error", error: err }
+        : { id: Date.now(), type: "error", key: "unexpectedError" });
     }
   };
 
@@ -61,12 +67,12 @@ const Events = () => {
         <span className="events-icon">
           <MdCalendarMonth />
         </span>
-        I nostri Eventi
+        {t("title")}
       </h1>
       <p className="events-description">
-        Qui puoi vedere tutti gli eventi disponibili. o aggiungerne di nuovi.
+        {t("description")}
       </p>
-      {error && <p className="events-description">Impossibile caricare gli eventi: {error}</p>}
+      {error && <p className="events-description">{t("loadError", { error: getErrorMessage(error) })}</p>}
       <div className="events-list">
         <Filter
           category={category}
@@ -75,7 +81,7 @@ const Events = () => {
         />
         {visibleEvents.length > 0 && (
           <Wrapper
-            title="Eventi e Visite Disponibili"
+            title={t("availableEvents")}
             items={visibleEvents}
             renderItem={(event) => (
               <Card
@@ -98,19 +104,20 @@ const Events = () => {
         <span className="events-icon">
           <FaCirclePlus />
         </span>
-        Aggiungi Evento
+        {t("addEvent")}
       </h1>
-        <p className="events-description">Compila il modulo sottostante per aggiungere un nuovo evento alla lista.</p>
+        <p className="events-description">{t("addDescription")}</p>
         <ActionAdmin
-          title="Pubblica nuovo evento!"
-          subtitle="Compila i campi richiesti per pubblicare un nuovo evento."
+          kind="event"
+          title={t("publishTitle")}
+          subtitle={t("publishDescription")}
           onPublished={loadEvents}
         />
       </div>
       {toast && (
         <Toast
           key={toast.id}
-          message={toast.text}
+          message={"key" in toast ? t(toast.key) : getErrorMessage(toast.error)}
           type={toast.type}
           onClose={closeToast}
         />

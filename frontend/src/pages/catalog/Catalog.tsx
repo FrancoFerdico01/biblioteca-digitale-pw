@@ -9,38 +9,44 @@ import "./catalog.css";
 import { MdCalendarMonth } from "react-icons/md";
 import ActionAdmin from "../../components/actionAdmin/ActionAdmin";
 import { FaCirclePlus } from "react-icons/fa6";
+import { useTranslation } from "react-i18next";
+import { getErrorMessage } from "../../i18n/errorMessage";
 
 const Catalog = () => {
+  const { t } = useTranslation("catalog");
   const [books, setBooks] = useState<BookItem[]>([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<Error | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState<FilterCategory>("all");
 
   const loadBooks = useCallback(() => {
     getBooks()
       .then(setBooks)
-      .catch((err: Error) => setError(err.message));
+      .catch((err: Error) => setError(err));
   }, []);
 
   useEffect(() => {
     loadBooks();
   }, [loadBooks]);
 
-  const [toast, setToast] = useState<{ id: number; type: "success" | "error"; text: string } | null>(null);
+  const [toast, setToast] = useState<
+    | { id: number; type: "success"; key: "deleteSuccess" }
+    | { id: number; type: "error"; error: ApiError }
+    | { id: number; type: "error"; key: "unexpectedError" }
+    | null
+  >(null);
   const closeToast = useCallback(() => setToast(null), []);
 
   const handleDelete = async (book: BookItem) => {
-    if (!window.confirm(`Eliminare il libro "${book.title}"?`)) return;
+    if (!window.confirm(t("deleteConfirm", { title: book.title }))) return;
     try {
       await deleteBook(book.id);
       loadBooks();
-      setToast({ id: Date.now(), type: "success", text: "Libro eliminato con successo!" });
+      setToast({ id: Date.now(), type: "success", key: "deleteSuccess" });
     } catch (err) {
-      setToast({
-        id: Date.now(),
-        type: "error",
-        text: err instanceof ApiError ? err.message : "Errore imprevisto",
-      });
+      setToast(err instanceof ApiError
+        ? { id: Date.now(), type: "error", error: err }
+        : { id: Date.now(), type: "error", key: "unexpectedError" });
     }
   };
 
@@ -61,12 +67,12 @@ const Catalog = () => {
         <span className="catalog-icon">
           <MdCalendarMonth />
         </span>
-        Il nostro Catalogo
+        {t("title")}
       </h1>
       <p className="catalog-description">
-        Qui puoi vedere tutto il catalogo o aggiungere un nuovo libro.
+        {t("description")}
       </p>
-      {error && <p className="catalog-description">Impossibile caricare il catalogo: {error}</p>}
+      {error && <p className="catalog-description">{t("loadError", { error: getErrorMessage(error) })}</p>}
       <div className="catalog-list">
         <Filter
           category={category}
@@ -75,7 +81,7 @@ const Catalog = () => {
         />
         {visibleBooks.length > 0 && (
           <Wrapper
-            title="Libri Disponibili"
+            title={t("availableBooks")}
             items={visibleBooks}
             renderItem={(book) => (
               <Card
@@ -97,19 +103,20 @@ const Catalog = () => {
         <span className="catalog-icon">
           <FaCirclePlus />
         </span>
-        Aggiungi Libro
+        {t("addBook")}
       </h1>
-        <p className="catalog-description">Compila il modulo sottostante per aggiungere un nuovo libro al catalogo.</p>
+        <p className="catalog-description">{t("addDescription")}</p>
         <ActionAdmin
-          title="Pubblica nuovo libro!"
-          subtitle="Compila i campi richiesti per pubblicare un nuovo libro."
+          kind="book"
+          title={t("publishTitle")}
+          subtitle={t("publishDescription")}
           onPublished={loadBooks}
         />
       </div>
       {toast && (
         <Toast
           key={toast.id}
-          message={toast.text}
+          message={"key" in toast ? t(toast.key) : getErrorMessage(toast.error)}
           type={toast.type}
           onClose={closeToast}
         />
