@@ -26,6 +26,11 @@
   gap: 20px;
 }
 
+.catalog-list > .wrapper-container {
+  flex: 1 1 100%;
+  max-width: none;
+}
+
 .catalog-new {
   margin-top: 40px;
 }

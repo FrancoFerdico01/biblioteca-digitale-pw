@@ -52,6 +52,16 @@
   display: none;
 }
 
+.navbar-user-initials {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.navbar-user {
+  position: relative;
+}
+
 .navbar-user-button {
   font-size: 16px;
   color: white;
@@ -62,6 +72,33 @@
   height: 32px;
   border-radius: 50%;
   cursor: pointer;
+}
+
+.navbar-user-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 120px;
+  z-index: 10;
+}
+
+.navbar-user-menu-item {
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 15px;
+  color: #555;
+  cursor: pointer;
+}
+
+.navbar-user-menu-item:hover {
+  background-color: rgb(14, 100, 212);
+  color: white;
 }
 
 

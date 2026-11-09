@@ -35,3 +35,9 @@ dist/
 build/
 coverage/
 .cache/
+# Backend: ambiente virtuale, cache, database locale e immagini caricate
+.venv/
+__pycache__/
+backend/biblioteca.db
+backend/uploads/
+

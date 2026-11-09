@@ -1,5 +1,5 @@
 import type { CardProps } from "../../types/interface";
-import { FaLocationDot, FaUsers } from "react-icons/fa6";
+import { FaLocationDot, FaTrashCan, FaUsers } from "react-icons/fa6";
 import { PiBookOpenText } from "react-icons/pi";
 import { PiBookmarksBold } from "react-icons/pi";
 import { FaCalendarAlt } from "react-icons/fa";
@@ -17,7 +17,10 @@ const Card = ({
   location,
   date,
   btnTextCard,
+  onBtnClick,
   secondBtnTextCard,
+  onSecondBtnClick,
+  onDelete,
 }: CardProps) => {
   return (
     <article className="card">
@@ -33,12 +36,23 @@ const Card = ({
           }}
         />
         <span className="card-duration">{duration}</span>
+        {onDelete && (
+          <button
+            type="button"
+            className="card-delete-button"
+            title="Elimina"
+            aria-label={`Elimina ${title}`}
+            onClick={onDelete}
+          >
+            <FaTrashCan size={14} />
+          </button>
+        )}
       </div>
       <div className="card-content">
         <h2>{title}</h2>
         <p>{description}</p>
         <div className="card-meta">
-          {available_books ? (
+          {available_books !== undefined ? (
             <span className="card-availability">
               <PiBookOpenText aria-hidden="true" />
               {available_books} copie disponibili
@@ -61,7 +75,7 @@ const Card = ({
           )}
         </div>
         {btnTextCard && (
-          <button className="card-booking-button">
+          <button className="card-booking-button" onClick={onBtnClick}>
             <PiBookmarksBold size={14} />
             {btnTextCard}
           </button>
@@ -75,6 +89,7 @@ const Card = ({
             <button
               className="card-booking-availability-button"
               title="Disponibile al prestito"
+              onClick={onSecondBtnClick}
             >
               <FaRegBookmark size={14} />
             </button>

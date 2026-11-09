@@ -26,6 +26,11 @@
   gap: 20px;
 }
 
+.events-list > .wrapper-container {
+  flex: 1 1 100%;
+  max-width: none;
+}
+
 .events-new {
   margin-top: 40px;
 }

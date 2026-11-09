@@ -1,16 +1,45 @@
 import { FaBookOpenReader } from "react-icons/fa6";
 import { IoPerson } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./navbar.css";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { getMe, getToken, logout } from "../../services/api";
 import Modal from "../modal/Modal";
 import Brand from "../brand/Brand";
-import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [initials, setInitials] = useState<string | null>(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isLoggedIn = getToken() !== null;
+
+  // Ricontrolla ad ogni cambio di pagina, così dopo il login compaiono le iniziali
+  useEffect(() => {
+    if (getToken() === null) {
+      setInitials(null);
+      return;
+    }
+    getMe()
+      .then((me) => setInitials(`${me.first_name[0]}${me.last_name[0]}`.toUpperCase()))
+      .catch(() => setInitials(null));
+  }, [location.pathname]);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
+
+  const handleUserClick = () => {
+    if (isLoggedIn) setMenuOpen((open) => !open);
+    else openModal();
+  };
+
+  const handleLogout = () => {
+    logout();
+    setMenuOpen(false);
+    setInitials(null);
+    navigate("/");
+  };
 
   return (
     <nav className="navbar">
@@ -27,12 +56,19 @@ const Navbar = () => {
           <Link to="/">Home</Link>
           <a href="#events">Eventi & Visite</a>
           <Link to="/Catalog">Catalogo Libri</Link>
-          <Link to="/contact">Le mie prenotazioni</Link>
+          {isLoggedIn && <Link to="/contact">Le mie prenotazioni</Link>}
         </div>
         <div className="navbar-user">
-          <button className="navbar-user-button" onClick={openModal}>
-            <IoPerson />
+          <button className="navbar-user-button" onClick={handleUserClick}>
+            {initials ? <span className="navbar-user-initials">{initials}</span> : <IoPerson />}
           </button>
+          {menuOpen && (
+            <div className="navbar-user-menu">
+              <button className="navbar-user-menu-item" onClick={handleLogout}>
+                Esci
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </nav>

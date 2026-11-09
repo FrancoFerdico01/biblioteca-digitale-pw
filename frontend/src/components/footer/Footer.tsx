@@ -15,10 +15,8 @@ import CustomButton from "../customButton/CustomButton";
 import { RiGitRepositoryPrivateLine } from "react-icons/ri";
 import Modal from "../modal/Modal";
 
-
-
 const Footer = () => {
-const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -108,14 +106,14 @@ const [openModal, setOpenModal] = useState(false);
             Rete bibliotecaria civica
           </span>
         <p className="footer-bottom-text">&copy; 2025 Biblioteca Digitale. Tutti i diritti riservati.</p>
-        <CustomButton  onClick={() => setOpenModal(true)}>
+        <CustomButton onClick={() => setOpenModal(true)}>
           <RiGitRepositoryPrivateLine /> Area Riservata
         </CustomButton>
       </div>
       {openModal && (
         <Modal
           title="Area Riservata"
-          paragraph="Questa sezione è riservata agli utenti autorizzati."
+          paragraph="Accesso riservato all'amministratore."
           onClose={() => setOpenModal(false)}
         />
       )}

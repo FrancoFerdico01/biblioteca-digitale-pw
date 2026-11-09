@@ -31,5 +31,27 @@
     "location": "Sala Laboratori ° Piano 2",
     "available_places": 15,
     "durations": "60 Min"
+  },
+  {
+    "id": 4,
+    "image": "path/to/image4.jpg",
+    "title": "Presentazione di libri storici",
+    "description": "Scopri le ultime pubblicazioni nel campo della storia locale.",
+    "time": "11:00 AM",
+    "date": "2026-10-12",
+    "location": "Sala Conferenze ° Piano 1",
+    "available_places": 25,
+    "durations": "45 Min"
+  },
+  {
+    "id": 5,
+    "image": "path/to/image5.jpg",
+    "title": "Workshop di fotografia",
+    "description": "Impara le tecniche di base della fotografia con un esperto del settore.",
+    "time": "3:00 PM",
+    "date": "2026-11-20",
+    "location": "Sala Laboratori ° Piano 2",
+    "available_places": 20,
+    "durations": "90 Min"
   }
 ]

@@ -9,7 +9,10 @@ interface CardProps {
   location: string;
   date?: string;
   btnTextCard?: string;
+  onBtnClick?: () => void;
   secondBtnTextCard?: string;
+  onSecondBtnClick?: () => void;
+  onDelete?: () => void;
 }
 
 export type { CardProps };
@@ -35,15 +38,23 @@ interface ModalProps {
   onClose: () => void;
   title: string;
   paragraph: string;
+  actionLabel?: string;
+  actionTo?: string;
+  details?: React.ReactNode;
+  onConfirm?: () => void;
+  confirmLabel?: string;
+  confirmDisabled?: boolean;
 }
 
 export type { ModalProps };
 
 interface InputCustomProps {
   type: string;
+  name?: string;
   required?: boolean;
   label: string;
   value?: string;
+  accept?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -53,9 +64,20 @@ interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 export type { ButtonProps };
+
+interface ToastProps {
+  message: string;
+  type?: "success" | "error";
+  icon?: React.ReactNode;
+  duration?: number;
+  onClose: () => void;
+}
+
+export type { ToastProps };
 
 interface FormProps {
   headerText: string;

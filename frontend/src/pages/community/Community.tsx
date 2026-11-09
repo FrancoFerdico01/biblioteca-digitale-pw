@@ -1,10 +1,20 @@
 import InfoTable from "../../components/infoTable/InfoTable";
 import { FaUsers } from "react-icons/fa";
-import users from "../../data/users.json";
+import { useEffect, useState } from "react";
+import { getUsers, type User } from "../../services/api";
 import "./community.css";
 
 const Community = () => {
- 
+  const [users, setUsers] = useState<User[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getUsers()
+      .then(setUsers)
+      .catch((err: Error) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <div className="community">
@@ -14,17 +24,21 @@ const Community = () => {
         </h1>
       <p className="community-description">Qui puoi vedere tutti gli utenti registrati.</p>
       <div>
-        <InfoTable
-          caption="Utenti registrati"
-          headers={["ID", "Name", "Email", "numero", "Iscritto da"]}
-          rows={users.map((user : { id: number; name: string; email: string; numero: string; iscritto_da: string }) => [
-            user.id,
-            user.name,
-            user.email,
-            user.numero,
-            user.iscritto_da,
-          ])}
-        />
+        {loading && <p>Caricamento utenti...</p>}
+        {error && <p>Impossibile caricare gli utenti: {error}</p>}
+        {!loading && !error && (
+          <InfoTable
+            caption={`Utenti registrati (${users.length})`}
+            headers={["ID", "Nome", "Email", "Telefono", "Iscritto da"]}
+            rows={users.map((user, index) => [
+              index + 1,
+              `${user.first_name} ${user.last_name}`,
+              user.email,
+              user.phone ?? "-",
+              new Date(user.created_at).toLocaleDateString("it-IT"),
+            ])}
+          />
+        )}
       </div>
     </div>
   );

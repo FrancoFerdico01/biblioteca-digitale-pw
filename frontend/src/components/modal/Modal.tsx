@@ -6,19 +6,40 @@ import { Link } from "react-router-dom";
 import CustomButton from "../customButton/CustomButton";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ApiError, clearToken, getMe, login } from "../../services/api";
 
-const Modal = ({ onClose, title, paragraph }: ModalProps) => {
+const Modal = ({
+  onClose,
+  title,
+  paragraph,
+  actionLabel,
+  actionTo,
+  details,
+  onConfirm,
+  confirmLabel,
+  confirmDisabled,
+}: ModalProps) => {
   const navigation = useNavigate();
   const [values, setValues] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
 
-const handleLogin = () => {
-  if (
-    values.email === import.meta.env.EMAIL_ADMIN &&
-    values.password === import.meta.env.PASSWORD_ADMIN
-  ) {
-    navigation("/dashboard");
-  }
-};
+  // Il controllo admin avviene sul backend: le credenziali non stanno nel frontend
+  const handleLogin = async () => {
+    setError("");
+    try {
+      await login(values.email, values.password);
+      const me = await getMe();
+      if (!me.is_admin) {
+        clearToken();
+        setError("Accesso riservato all'amministratore");
+        return;
+      }
+      navigation("/dashboard");
+    } catch (err) {
+      clearToken();
+      setError(err instanceof ApiError ? err.message : "Errore imprevisto");
+    }
+  };
 
 
   return (
@@ -28,6 +49,7 @@ const handleLogin = () => {
         <div className="modal-text">
           <h2>{title}</h2>
           <p>{paragraph}</p>
+          {details}
         </div>
         <div className="modal-actions">
           {title === "Area Riservata" ? (
@@ -39,14 +61,24 @@ const handleLogin = () => {
                 <InputCustom type="password" label="Password" value={values.password} onChange={(e) => setValues({ ...values, password: e.target.value })} />
               </div>
             </div>
-          ) : (
+          ) : actionTo || onConfirm ? null : (
             <div className="modal-links">
               <Link to="/login">Accedi</Link>
               <Link to="/register">Registrati</Link>
             </div>
           )}
-          {title === "Area Riservata" ? (
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          {onConfirm ? (
+            <div className="modal-confirm-actions">
+              <CustomButton type="button" onClick={onClose}>Annulla</CustomButton>
+              <CustomButton type="button" onClick={onConfirm} disabled={confirmDisabled}>
+                {confirmLabel}
+              </CustomButton>
+            </div>
+          ) : title === "Area Riservata" ? (
             <CustomButton onClick={handleLogin}>Accedi</CustomButton>
+          ) : actionTo ? (
+            <CustomButton onClick={() => navigation(actionTo)}>{actionLabel}</CustomButton>
           ) : (
             <CustomButton onClick={onClose}>Chiudi</CustomButton>
           )}

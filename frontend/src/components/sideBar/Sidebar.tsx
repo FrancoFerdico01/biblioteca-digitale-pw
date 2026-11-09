@@ -6,6 +6,7 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { MdCalendarMonth } from "react-icons/md";
 import { MdLibraryBooks } from "react-icons/md";
 import { MdPeople } from "react-icons/md";
+import { clearToken } from "../../services/api";
 
 import "./sidebar.css";
 
@@ -36,7 +37,8 @@ const Sidebar = () => {
           <div className="sidebar-footer">
             <CustomButton
               onClick={() => {
-                navigate("/");
+                clearToken();
+                navigate("/login");
               }}
             >
               Logout
